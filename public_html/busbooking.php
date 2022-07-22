@@ -1,3 +1,5 @@
+<?php include "sidebar.php"; ?>
+
 <?php
 		$err = "";
 
@@ -30,41 +32,6 @@
         mysqli_close($dbc);
     
     ?>
-
-<?php 
-		$login = false;
-
-		//connect database
-		$dbc = mysqli_connect('localhost', 'root', '');
-
-		if (!$dbc) {
-			die("Error: " . mysqli_connect_error($dbc));
-		}
-
-		mysqli_select_db($dbc, 'busplan');
-			
-		if (isset($_GET['sign-out'])) {
-			session_start();
-			session_destroy();
-		}
-
-		else {
-			session_start();
-			if (isset($_SESSION['user_info'])) {
-
-				$login = true;
-
-				//run thequery
-				if ($r = mysqli_query($dbc, $_SESSION['user_info'])) { 
-					//retrieve the record
-					$row = mysqli_fetch_array($r);
-
-					$displayname = $row['first_name'] . $row['last_name'];
-				}
-			}
-		}
-		mysqli_close($dbc);
-	?>
 
 <html>
 <head>
@@ -377,7 +344,6 @@
 </head>
 
 <body>
-	<?php include "sidebar.php"; ?>
 		<div style="position:absolute; width:100px; height:200px; align:left; top:-40px; left:20px;">
 			<a href="index.php"><img src="images/tombuslogo2.png" class="logo" style="filter: grayscale(100%);"></a>
 		</div>
@@ -462,6 +428,7 @@
 						<br/><br/>
 						<input type="submit" class="searchBus" value="Search Bus">	
 						<input type="hidden" name="submitted" value="true">
+						<br/>
 					</div>
 					</form>
 					<!--End of Tab Content 1 -->
@@ -475,7 +442,8 @@
 		<table class="bus_route">
 
 			<!-- Place -->
-			<div class="col-sm-12 col-lg-6">
+
+			<div class="table-responsive d-flex col-sm-12 col-lg-6 justify-content:center">
 			<table class="table">
 			<tbody>
 				<tr>

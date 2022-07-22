@@ -1,3 +1,38 @@
+<?php 
+		$login = false;
+
+		//connect database
+		$dbc = mysqli_connect('localhost', 'root', '');
+
+		if (!$dbc) {
+			die("Error: " . mysqli_connect_error($dbc));
+		}
+
+		mysqli_select_db($dbc, 'busplan');
+			
+		if (isset($_GET['sign-out'])) {
+			session_start();
+			session_destroy();
+		}
+
+		else {
+			session_start();
+			if (isset($_SESSION['user_info'])) {
+
+				$login = true;
+
+				//run thequery
+				if ($r = mysqli_query($dbc, $_SESSION['user_info'])) { 
+					//retrieve the record
+					$row = mysqli_fetch_array($r);
+
+					$displayname = $row['first_name'] . $row['last_name'];
+				}
+			}
+		}
+		mysqli_close($dbc);
+	?>
+
 <html>
 
 <head>
@@ -24,32 +59,6 @@
 	@media(max-width:320px){
 		.video{
 			max-width:120vw;
-		}
-
-		.side-bar {
-			position: fixed;
-			max-width: 200px;
-			height: 400px;
-			left:5px;
-			padding-left:200px;
-			
-		}
-
-		.side-bar-content {
-			position: fixed;
-			max-width: 200px;
-			max-height: 500px;
-			left:5px;
-			padding-left:18px;
-			
-		}
-
-		.acc-container {
-			width: 300px;
-			height: 100px;
-			padding-top:70px;
-			text-align: center;
-
 		}
 
   		.video-container video {
@@ -131,40 +140,6 @@
 </style>
 
 <body>
-	<?php 
-		$login = false;
-
-		//connect database
-		$dbc = mysqli_connect('localhost', 'root', '');
-
-		if (!$dbc) {
-			die("Error: " . mysqli_connect_error($dbc));
-		}
-
-		mysqli_select_db($dbc, 'busplan');
-			
-		if (isset($_GET['sign-out'])) {
-			session_start();
-			session_destroy();
-		}
-
-		else {
-			session_start();
-			if (isset($_SESSION['user_info'])) {
-
-				$login = true;
-
-				//run thequery
-				if ($r = mysqli_query($dbc, $_SESSION['user_info'])) { 
-					//retrieve the record
-					$row = mysqli_fetch_array($r);
-
-					$displayname = $row['first_name'] . $row['last_name'];
-				}
-			}
-		}
-		mysqli_close($dbc);
-	?>
 	
 	<div class="bus">
 	
@@ -186,88 +161,9 @@
 			<a href="busbooking.php"><button type="button" class="btn-glass">Book Now &nbsp;&nbsp;&#8594</button></a>
 		</div>
 
+		<?php include "sidebar.php"; ?>
 		<a name="top"></a>
 
-		<div class="side-bar">
-			<button class="menu-btn">
-				<img src="images/menu.png" class="menu">
-			</button>
-
-			<div class="side-bar-content">
-				
-				<div class="acc-container">
-
-					<?php 
-
-						if (!$login) {
-							echo '<a href="account.php"><img src="images/person.png" class="account"></a>';
-							echo "<br/><br/>";
-							echo '<a href="userlogin.php"><button class="btn">Login / Sign Up</button></a>';
-						}
-						else {
-							echo '<a href="userprofile.php"><img src="images/person.png" class="account"></a>';
-							echo "<br/><br/>";
-							echo $displayname;
-						}
-					?>
-				</div>
-				<br/>
-				<hr color="#c4c4c4" width="270px">
-				
-				<ul>
-					<a href="index.php">
-						<li>
-							<img src="images/home.png" class="icon">Home
-						</li>
-					</a>
-					<a href="aboutus.php">
-						<li>
-							<img src="images/aboutus.png" style="opacity:60%; margin-right:21px; width:25px; height:25px;">About Us
-						</li>
-					</a>
-					<a href="busbooking.php">
-						<li>
-							<img src="images/busbooking.png" class="icon">Bus Booking
-						</li>
-					</a>
-					<a href="bookinghistory.php">
-						<li>
-							<img src="images/bookinghistory.png" class="icon">Booking History
-						</li>
-					</a>
-					<a href="contactus.php">
-						<li>
-							<img src="images/contactus.png" class="icon">Contact Us
-						</li>
-					</a>
-					<a href="faq.php">
-						<li>
-							<img src="images/faq.png" class="icon">FAQ
-						</li>
-					</a>
-				</ul>
-
-				<hr color="#c4c4c4" width="270px">
-				<br/>
-
-				<?php
-					if ($login) {
-						echo '<form action="index.php" method="get">
-								<button type="submit" class="btn">Sign Out</button>
-								<input type="hidden" name="sign-out" value="true">
-								</form>
-						';
-					}
-				?>
-			</div>
-			
-			<div class="to-top">
-				<a href="#top">
-					<img src="images/to-top.png" width="30px" height="30px">
-				</a>
-			</div>
-
-		</div>
 	</div>
 
 	<h1 align="center">Why Book With Us?</h1>
@@ -359,25 +255,36 @@
 		</div>
 	</div>
 
+	<br/><br/>
+
 
 	<h1 align="center">Promotion</h1>
+	<div class="col d-flex justify-content-center">
+	<div class="col-sm-12 col-lg-6">
+
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 			<img src="images/promotion1.jpg" class="d-block w-100" alt="...">
 			</div>
-			<div class="carousel-item">
+			<div class="carousel-item ">
 			<img src="images/promotion1.jpg" class="d-block w-100" alt="...">
 			</div>
 		</div>
+		<div class="col-sm-12 col-lg-6">
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			<span class="visually-hidden">Previous</span>
 		</button>
+				</div>
+		<div class="col-sm-12 col-lg-6">
 		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
 			<span class="visually-hidden">Next</span>
 		</button>
+		</div>
+	</div>
+	</div>
 	</div>
 
 	<br/><br/>
@@ -429,18 +336,15 @@
 		<div class="container">
 			<div class="row text-center">
 					<div class="col-sm-12 col-lg-6">
-						<div class="image" align=" center" style="font-size:10.5pt;margin-top:100px;margin-left:5%;margin-right:5%">
-								<img class="image_destination" width="350" height="350" src="images/Johor.jpg">
-						</div>
+							<img class="image_destination" width="350" height="350" src="images/Penang.jpg">
 					</div>
 
 					<div class="col-sm-12 col-lg-6">
-
-					<h3 class="text-center"><i>Johor</i></h3>
+						<h3 class="text-center"><i>Johor</i></h3>
 						<p>&emsp;&emsp;&emsp;&emsp;</p>
-						<p class="top" align="left" style="line-height:2">There’s no shame in being a tourist in our own country, especially when Malaysia has plenty of land worth exploring. In the town of Johor Bahru itself, there are already an abundance of places and an almost inexhaustible amount of things to do. 
-			<br/><br/>If you’ve always thought that all there is to JB is Legoland and bowls of Johor laksa, this list will definitely come in handy for your next weekend getaway. Locals and tourists alike will be able to find something new to add into their itinerary, from a glow-in-the-dark mini-golf course to a hidden bar that also acts as a full-fledged tailor. </p>
-
+						<p class="top" align="left" style="line-height:2">Johor Bahru is a Malaysian town that sits just across from the border with Singapore. As is the case with many border towns, it had a rather seedy reputation for years before cleaning up its act and developing a great range of new family friendly attractions that have helped its popularity to soar.
+						<br/><br/>If you are in Singapore and looking for a quick day trip then Johor Bahru is a great choice, and you will find a number of cutting-edge malls, bars, and eateries here. If you want to enjoy some of the history of this area however, then the city has a good range of historic and cultural sites, many of which date from the time of the British colonial period.	
+						<br/><br/>Any history buff will also enjoy the number of fascinating museums in Johor Bahru or you can spend time eating your way around the city. Like much of Malaysia, Johor Bahru has a delicious local street food scene, and some of the bakeries here are famous for having been in operation for decades.</p>
 					</div>
 			</div>
 		</div>

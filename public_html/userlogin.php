@@ -101,13 +101,13 @@
 					
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_assoc($result)) {
-                        session_start();
+                        
                         $_SESSION['user_info'] = "SELECT * FROM user WHERE email ='$email'";
                         $_SESSION['user_id'] = $row['user_id'];
                         echo '
                             <div class="successbg">
                                 <div class="success-signup">
-                                    <h1>Hi' . $email. '!</h1>
+                                    <h1>Hi</h1>
                                     <h1>Welcome to Bus Plan!</h1>
                                     <p>We are happy to have you on board. </p>
                                     <br/><br/>

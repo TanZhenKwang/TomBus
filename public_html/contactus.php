@@ -1,37 +1,4 @@
-<?php 
-		$login = false;
 
-		//connect database
-		$dbc = mysqli_connect('localhost', 'root', '');
-
-		if (!$dbc) {
-			die("Error: " . mysqli_connect_error($dbc));
-		}
-
-		mysqli_select_db($dbc, 'busplan');
-			
-		if (isset($_GET['sign-out'])) {
-			session_start();
-			session_destroy();
-		}
-
-		else {
-			session_start();
-			if (isset($_SESSION['user_info'])) {
-
-				$login = true;
-
-				//run thequery
-				if ($r = mysqli_query($dbc, $_SESSION['user_info'])) { 
-					//retrieve the record
-					$row = mysqli_fetch_array($r);
-
-					$displayname = $row['first_name'] . $row['last_name'];
-				}
-			}
-		}
-		mysqli_close($dbc);
-	?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,39 +24,18 @@
 }
 
 body{
-    background: url('.jpg') no-repeat top center;
+    background: #F0F8FF;
     background-size: cover;
     height: 100vh;
-    background: #dbedfa;
-}
-
-.side-bar {
-    position: fixed;
-    width: 300px;
-    height: 100vh;
-    right: 20px;
-    top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-@media(max-width:350px){
-    .side-bar {
-    position: fixed;
-    max-width: 200px;
-    height: 100vh;
-    
-}
 }
 
 
 </style>
 </head>
 
-<body>
+<body><?php include 'sidebar.php'; ?>
 	<a href="index.php"><img src="images/tombuslogo2.png" class="logo" style="filter: grayscale(100%);opacity: 80%; transform:translateX(40px)translateY(-35px);"></a>
-<?php include 'sidebar.php'; ?>
+
 <?php 
 	use PHPMailer\PHPMailer\PHPMailer;
 

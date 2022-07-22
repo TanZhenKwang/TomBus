@@ -1,37 +1,4 @@
-<?php 
-		$login = false;
 
-		//connect database
-		$dbc = mysqli_connect('localhost', 'root', '');
-
-		if (!$dbc) {
-			die("Error: " . mysqli_connect_error($dbc));
-		}
-
-		mysqli_select_db($dbc, 'busplan');
-			
-		if (isset($_GET['sign-out'])) {
-			session_start();
-			session_destroy();
-		}
-
-		else {
-			session_start();
-			if (isset($_SESSION['user_info'])) {
-
-				$login = true;
-
-				//run thequery
-				if ($r = mysqli_query($dbc, $_SESSION['user_info'])) { 
-					//retrieve the record
-					$row = mysqli_fetch_array($r);
-
-					$displayname = $row['first_name'] . $row['last_name'];
-				}
-			}
-		}
-		mysqli_close($dbc);
-	?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +10,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Sofia&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet">
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </head>
 	
 	<body>

@@ -1,37 +1,4 @@
-<?php 
-		$login = false;
 
-		//connect database
-		$dbc = mysqli_connect('localhost', 'root', '');
-
-		if (!$dbc) {
-			die("Error: " . mysqli_connect_error($dbc));
-		}
-
-		mysqli_select_db($dbc, 'busplan');
-			
-		if (isset($_GET['sign-out'])) {
-			session_start();
-			session_destroy();
-		}
-
-		else {
-			session_start();
-			if (isset($_SESSION['user_info'])) {
-
-				$login = true;
-
-				//run thequery
-				if ($r = mysqli_query($dbc, $_SESSION['user_info'])) { 
-					//retrieve the record
-					$row = mysqli_fetch_array($r);
-
-					$displayname = $row['first_name'] . $row['last_name'];
-				}
-			}
-		}
-		mysqli_close($dbc);
-	?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +30,10 @@ body {
 
 .accordion-item{
   width:80%;
+}
+
+.accordion-button{
+    display:block;
 }
 
 .logo{
@@ -103,7 +74,7 @@ body {
     </div>
     <br/><br/><br/>
 
-    <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion accordion-flush d-flex justify-content-center align-items-center flex-column" id="accordionFlushExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -178,4 +149,6 @@ body {
 <?php include 'Footer.php'; ?>
 </body>
 </html>
+
+
 
