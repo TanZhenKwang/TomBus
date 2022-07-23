@@ -127,7 +127,7 @@
 					echo '
 					<div class="container"
 						<p>Please login before proceed to booking history.<br/><br/></p>
-						<p><a href="account.php"><button class="btn btn-primary" type="submit">Login</button></a></p>
+						<p><a href="userlogin.php"><button class="btn btn-primary" type="submit">Login</button></a></p>
 					</div>';
 
 						}

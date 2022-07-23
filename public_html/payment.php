@@ -243,7 +243,7 @@ if (isset($_GET['seat'])) {
     else {
     
         echo "Please login before proceed to payment.<br/><br/>";
-        echo "<a href=\"account.php\" target=\"_blank\"><button class=\"btn\" type=\"submit\">Login</button></a>";
+        echo "<a href=\"userlogin.php\" target=\"_blank\"><button class=\"btn\" type=\"submit\">Login</button></a>";
     }
     mysqli_close($dbc);
 }
