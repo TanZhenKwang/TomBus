@@ -216,3 +216,4 @@ body{
 </body>
 
 </html>
+<?php include 'Footer.php'; ?>
