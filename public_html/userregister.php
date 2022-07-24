@@ -148,7 +148,7 @@
         <div class="successbg">
         <div class="success-signup">
             <h1>Hi ' . $firstname . ' ' . $lastname .'!</h1>
-            <h1>Welcome to Savfood!</h1>
+            <h1>Welcome to TomBus!</h1>
             <p>We are happy to have you on board. </p>
             <a href="userlogin.php"><button class="btn btn-primary text-light">Great!</button></a>  
         </div>

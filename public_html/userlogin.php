@@ -108,7 +108,7 @@
                             <div class="successbg">
                                 <div class="success-signup">
                                     <h1>Hi</h1>
-                                    <h1>Welcome to Bus Plan!</h1>
+                                    <h1>Welcome to Tom Bus!</h1>
                                     <p>We are happy to have you on board. </p>
                                     <br/><br/>
                                     <a href="index.php"><button class="btn">Great!</button></a>  
